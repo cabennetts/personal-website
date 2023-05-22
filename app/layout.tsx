@@ -1,4 +1,6 @@
-import './globals.css'
+import Link from "next/link";
+import './global.css'
+import NavMenu from "./NavMenu";
 import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -15,7 +17,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <NavMenu />
+      <main>
+        {children}
+      </main>
     </html>
   )
 }
