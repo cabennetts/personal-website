@@ -2,6 +2,7 @@ import Link from "next/link";
 import styles from './page.module.css';
 import Image from 'next/image';
 import { FaGithub, FaYoutube, FaLink } from 'react-icons/fa';
+import { db } from '@vercel/postgres';
 
 interface Project {
     title: string;
@@ -18,15 +19,17 @@ interface Props {
 }
 
 export default async function ProjectItemPage({ params }: Props){
-    // const projects: Project[] = await fetch('http://localhost:3000/api/content').then(
-    //     (res) => res.json()
-    // );
+ 
+    const client = await db.connect();
+    const { rows } = await client.sql`SELECT * FROM projects WHERE slug = ${params.slug};`;
+    
+    
     // Searching through api to find match of slug then displaying data
-    // const project = projects.find((project) => project.slug === params.slug)!;
+    const project = rows.find((project) => project.slug === params.slug)!;
     return (
         <div className={styles.container}>
-            {/* <h2 className={styles.title}>{project.title}</h2> */}
-            {/* <p className={styles.description}>{project.description}</p> */}
+            <h2 className={styles.title}>{project.title}</h2>
+            <p className={styles.description}>{project.description}</p>
 
             {/* PROJECT IMAGE */}
             {/* <img 
@@ -39,28 +42,28 @@ export default async function ProjectItemPage({ params }: Props){
             <div className={styles.linkContainer}>
                 <ul className={styles.links}>
                     <li>
-                        {/* <Link href={`${project.githubRepo}`}>
+                        <Link href={`${project.githubRepo}`}>
                             <FaGithub 
                             width={32}
                             height={32}
                             />
-                        </Link> */}
+                        </Link>
                     </li>
                     <li>
-                        {/* <Link href={`${project.youtubeVideo}`}>
+                        <Link href={`${project.youtubeVideo}`}>
                             <FaYoutube
                             width={32}
                             height={32}
                             />
-                        </Link> */}
+                        </Link>
                     </li>
                     <li>
-                        {/* <Link href={`${project.liveLink}`}>
+                        <Link href={`${project.liveLink}`}>
                             <FaLink
                             width={32}
                             height={32}
                             />
-                        </Link> */}
+                        </Link>
                     </li>
                 </ul>
             </div>

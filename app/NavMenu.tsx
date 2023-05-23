@@ -8,7 +8,7 @@ export default function NavMenu(){
 
     return (
         <nav className={styles.nav}>
-            <Link href={'/'}>
+            {/* <Link href={'/'}>
                 <Image 
                 src="/next.svg"
                 width={216}
@@ -16,8 +16,11 @@ export default function NavMenu(){
                 alt="Project Logo"
                 className={styles.logo}
                 /> 
-            </Link>
+            </Link> */}
             <ul className={styles.links}>
+                <li>
+                    <Link href={'/'}>Home</Link>                    
+                </li>
                 <li>
                     <Link href={'/about'}>About</Link>                    
                 </li>
