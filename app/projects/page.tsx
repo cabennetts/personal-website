@@ -37,7 +37,7 @@ export default async function ProjectsPage() {
     <div>
       <h2>Projects</h2>
       {projects.map((project) => {
-        return <ProjectCard key={project.slug} {...project} />;
+        return <ProjectCard title={project.title} slug={project.slug} description={project.description} githubRepo={project.githubRepo} youtubeVideo={project.youtubeVideo} liveLink={project.liveLink} language={project.language} key={project.slug} {...project} />;
       })}
     </div>
   );

@@ -3,6 +3,7 @@ import styles from './ProjectCard.module.css';
 import Image from 'next/image';
 import { FaGithub, FaYoutube, FaLink } from 'react-icons/fa';
 interface Props {
+    key: any;
     title: string | null;
     slug: string | null;
     description: string | null;
