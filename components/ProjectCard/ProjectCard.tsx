@@ -28,39 +28,49 @@ export default function ProjectCard({ title, slug, description, githubRepo, yout
                 <Link href={`/projects/${slug}`}>{title}</Link>
             </h2>
             <p className={styles.description}>Description: {description}</p>
-
             
             <footer>
                 <span>Languages used: {language}</span>
 
                 {/* PROJECT LINKS */}
-                {/* TODO: Display links if they exist, otherwise don't display that link */}
                 <span className={styles.pushLeft}>
                     <ul className={styles.links}>
-                        <li>
-                            <Link href={`${githubRepo}`}>
-                                <FaGithub 
-                                width={32}
-                                height={32}
-                                />
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href={`${youtubeVideo}`}>
-                                <FaYoutube
-                                width={32}
-                                height={32}
-                                />
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href={`${liveLink}`}>
-                                <FaLink
-                                width={32}
-                                height={32}
-                                />
-                            </Link>
-                        </li>
+                        {githubRepo  !== '' ? 
+                            <li>
+                                <Link href={`${githubRepo}`}>
+                                    <FaGithub 
+                                    width={32}
+                                    height={32}
+                                    />
+                                </Link>
+                            </li>
+                            :  
+                            <li className={styles.hidden}></li>
+                        } 
+                        {youtubeVideo !== '' ? 
+                            <li>
+                                <Link href={`${youtubeVideo}`}>
+                                    <FaYoutube
+                                    width={32}
+                                    height={32}
+                                    />
+                                </Link>
+                            </li>
+                            : 
+                            <li className={styles.hidden}></li>
+                        }
+                        {liveLink !== '' ?
+                            <li>
+                                <Link href={`${liveLink}`}>
+                                    <FaLink
+                                    width={32}
+                                    height={32}
+                                    />
+                                </Link>
+                            </li>
+                            : 
+                            <li className={styles.hidden}></li>
+                        }
                     </ul>
                  </span>
             </footer>
