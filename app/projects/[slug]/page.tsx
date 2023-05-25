@@ -22,10 +22,9 @@ export default async function ProjectItemPage({ params }: Props){
  
     const client = await db.connect();
     const { rows } = await client.sql`SELECT * FROM projects WHERE slug = ${params.slug};`;
-    
-    
     // Searching through api to find match of slug then displaying data
     const project = rows.find((project) => project.slug === params.slug)!;
+
     return (
         <div className={styles.container}>
             <h2 className={styles.title}>{project.title}</h2>
@@ -38,35 +37,49 @@ export default async function ProjectItemPage({ params }: Props){
                 className={styles.cardImage}
             /> */}
 
+            <p><strong>Languages used:</strong> {project.language}</p>
+            
             {/* PROJECT LINKS */}
-            <div className={styles.linkContainer}>
+            <span className={styles.pushLeft}>
                 <ul className={styles.links}>
-                    <li>
-                        <Link href={`${project.githubRepo}`}>
-                            <FaGithub 
-                            width={32}
-                            height={32}
-                            />
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href={`${project.youtubeVideo}`}>
-                            <FaYoutube
-                            width={32}
-                            height={32}
-                            />
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href={`${project.liveLink}`}>
-                            <FaLink
-                            width={32}
-                            height={32}
-                            />
-                        </Link>
-                    </li>
+                    {project.githubrepo  !== '' ? 
+                        <li>
+                            <Link href={`${project.githubrepo}`}>
+                                <FaGithub 
+                                width={32}
+                                height={32}
+                                />
+                            </Link>
+                        </li>
+                        :  
+                        <li className={styles.hidden}></li>
+                    } 
+                    {project.youtubevideo !== '' ? 
+                        <li>
+                            <Link href={`${project.youtubevideo}`}>
+                                <FaYoutube
+                                width={32}
+                                height={32}
+                                />
+                            </Link>
+                        </li>
+                        : 
+                        <li className={styles.hidden}></li>
+                    }
+                    {project.livelink !== '' ?
+                        <li>
+                            <Link href={`${project.livelink}`}>
+                                <FaLink
+                                width={32}
+                                height={32}
+                                />
+                            </Link>
+                        </li>
+                        : 
+                        <li className={styles.hidden}></li>
+                    }
                 </ul>
-            </div>
+            </span>
         </div>
     )
 }

@@ -27,10 +27,10 @@ export default function ProjectCard({ title, slug, description, githubRepo, yout
             <h2>
                 <Link href={`/projects/${slug}`}>{title}</Link>
             </h2>
-            <p className={styles.description}>Description: {description}</p>
+            <p className={styles.description}>{description}</p>
             
             <footer>
-                <span>Languages used: {language}</span>
+                <span> <strong>Languages used:</strong> {language}</span>
 
                 {/* PROJECT LINKS */}
                 <span className={styles.pushLeft}>
