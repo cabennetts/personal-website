@@ -1,7 +1,7 @@
 import cloudinary from "@/utils/cloudinary"
 import type { ImageProps } from "@/utils/types"
 
-export async function getStaticProps() {
+export async function GET() {
     const results = await cloudinary.v2.search
       .expression(`folder:${process.env.CLOUDINARY_FOLDER}/*`)
       .sort_by('public_id', 'desc')
