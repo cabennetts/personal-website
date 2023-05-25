@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import { useLastViewedPhoto } from '../../utils/useLastViewedPhoto'
-import { getStaticProps } from "../api/about/route";
+import { getStaticProps } from "../api/other/route";
 import ImageCard from "@/components/ImageCard/ImageCard";
 
 export const metadata: Metadata = {
