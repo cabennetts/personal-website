@@ -2,6 +2,7 @@ import Link from "next/link";
 import './global.css'
 import NavMenu from "./NavMenu";
 import { Inter } from 'next/font/google'
+import FooterMenu from "./FooterMenu";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,6 +22,9 @@ export default function RootLayout({
       <main>
         {children}
       </main>
+      <footer>
+        <FooterMenu />
+      </footer>
     </html>
   )
 }

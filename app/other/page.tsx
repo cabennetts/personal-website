@@ -1,5 +1,15 @@
 export const dynamic = 'force-static';
+// "use client";
 import { Metadata } from "next";
+import Image from "next/image";
+import type { ImageProps } from "../../utils/types";
+import cloudinary from "@/utils/cloudinary";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useRef } from "react";
+import { useLastViewedPhoto } from '../../utils/useLastViewedPhoto'
+import { getStaticProps } from "../api/about/route";
+import ImageCard from "@/components/ImageCard/ImageCard";
 
 export const metadata: Metadata = {
   title: 'Other ',
@@ -7,11 +17,20 @@ export const metadata: Metadata = {
   
 };
 
-export default async function OtherPage(){
-    return(
+export default async function OtherPage() {
+  // const images = await getStaticProps();
+  // console.log(images);
+
+  return(
       <div>
         <h1>Other Page</h1>
-        <p></p>
+        <p>Some photos I have taken</p>
+
+        {/* {images.map((image) => (
+            return <ImageCard key={image.id}
+          ))} */}
       </div>
     );
 }
+
+

@@ -28,9 +28,6 @@ export default function NavMenu(){
                     <Link href={'/projects'}>Projects</Link>                    
                 </li>
                 <li>
-                    <Link href={'/resume'}>Resume</Link> 
-                </li>
-                <li>
                     <Link href={'/other'}>Other</Link> 
                 </li>
                 {/* <li>

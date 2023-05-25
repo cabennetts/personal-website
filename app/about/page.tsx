@@ -1,5 +1,6 @@
 export const dynamic = 'force-static';
 import { Metadata } from "next";
+import styles from './page.module.css';
 
 export const metadata: Metadata = {
   title: 'About Me',
@@ -9,12 +10,12 @@ export const metadata: Metadata = {
 
 export default async function About(){
     return(
-      <div>
+      <div className={styles.main}>
         <h1>About Page</h1>
         
         <p>I am a graduate from the University of Kansas with a Bachelors degree in Computer Science!</p>
         <h4>Where am I from?</h4>
-        <p>I&apos;m a Kansas native who was born and raised in Leavenworth. I lived in Lawrence while for about half of my time at KU. Now I currently live in Olathe!</p>
+        <p>I&apos;m a Kansas native who was born and raised in Leavenworth. I lived in Lawrence while for about half of my time at KU. Now I currently live in Olathe.</p>
       
         <h4>Why KU?</h4>
         <p>Growing up I always knew I wanted to go to KU. I also wanted to be close to home and did not want to study out of state.</p>
