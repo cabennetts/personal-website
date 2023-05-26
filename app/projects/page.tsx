@@ -6,11 +6,13 @@ import { db } from "@vercel/postgres";
 import { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 
+export const revalidate = 60;
 export const metadata: Metadata = {
   title: 'Projects',
   description: 'Some projects I have completed during my time at school and on my own time!',
   
 };
+
 
 interface Project {
     title: string;
@@ -30,9 +32,8 @@ async function getProjects() {
 }
 
 export default async function ProjectsPage() {
- 
+  
   const projects = await getProjects();
-
   
   return(
     <div className={styles.main}>

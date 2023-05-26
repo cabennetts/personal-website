@@ -13,7 +13,7 @@ import ImageCard from "@/components/ImageCard/ImageCard";
 
 export const metadata: Metadata = {
   title: 'Other ',
-  description: 'Some things I do outside of work!',
+  description: 'Some things I do outside of work',
 };
 
 export default async function OtherPage() {
