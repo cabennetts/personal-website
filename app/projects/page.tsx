@@ -25,13 +25,14 @@ interface Project {
 async function getProjects() {
   const client = await db.connect();
   const data = await (await client.sql`SELECT * FROM projects;`).rows;
-  
+  data.reverse();
   return data;
 }
 
 export default async function ProjectsPage() {
  
   const projects = await getProjects();
+
   
   return(
     <div className={styles.main}>
