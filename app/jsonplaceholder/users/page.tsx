@@ -6,7 +6,6 @@ export const metadata: Metadata = {
     title: 'JSON Placeholder testing',
 }
 
-
 export default async function page() {
     // requests during the build
     const userData: Promise<User[]> = getAllUsers()
@@ -14,6 +13,7 @@ export default async function page() {
     const users = await userData
 
     const content = (
+        <>
         <section>
             <h3>
                 <Link href="/">Back to Home</Link>
@@ -30,6 +30,7 @@ export default async function page() {
                 )
             })}
         </section>
+        </>
     )
     return content
 }
