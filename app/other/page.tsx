@@ -24,8 +24,18 @@ export const metadata: Metadata = {
 
 interface Photo  {
   id: number
-  urls: { large: string; regular: string; raw: string; small: string;}
-  links: { self: string; html: string; download: string; download_location: string; }
+  urls: { 
+    large: string;
+    regular: string;
+    raw: string;
+    small: string;
+  }
+  links: {
+    self: string;
+    html: string;
+    download: string;
+    download_location: string;
+  }
 }
 
 export default async function OtherPage() {
@@ -40,11 +50,11 @@ export default async function OtherPage() {
       <h1>Other Page</h1>
       <p>Some photos I have taken that are uploaded on Unsplash and displayed using their api</p>
 
-      <ul className={styles.containterUL}>
+      <ul className={styles.containerUL}>
 
         {images.map(image => {
           return (
-            <li key={image.id} className={styles.containterLI}>
+            <li key={image.id} className={styles.containerLI}>
 
               <Link href={image.links.html} className={styles.photoLink} >
                 <img className={styles.photo} src={image.urls.regular} alt={image.alt_description} />  

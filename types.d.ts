@@ -99,3 +99,24 @@ type UnsplashImage = {
       }
     }
 }
+
+type BlogPost = {
+  id: string,
+  title: string,
+  date: string,
+}
+
+type NotionPage = {
+  object: string,
+  id: string,
+  created_time: string,
+  last_edited_time: string,
+  created_by: [],
+  last_edited_by: [],
+  cover: string | null,
+  icon: string | null,
+  parent: [],
+  archived: boolean,
+  properties: [],
+  url: string
+}
