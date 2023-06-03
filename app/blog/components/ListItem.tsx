@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import getFormattedDate from '@/lib/getFormattedDate'
 import { Meta } from '@/types'
+import styles from './ListItem.module.css'
 
 type Props = {
     post: Meta
@@ -11,14 +12,15 @@ export default function ListItem({ post }: Props) {
     const formattedDate = getFormattedDate(date)
 
     return (
-        <li>
+        <li className={styles.link}>
             <Link
+            className={styles.post}
                 href={`/blog/${id}`}
             >
                 {title}
             </Link>
             <br/>
-            <p>{formattedDate}</p>
+            <p className={styles.date}>{formattedDate}</p>
         </li>
     )
 }

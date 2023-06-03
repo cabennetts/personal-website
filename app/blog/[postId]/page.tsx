@@ -3,6 +3,7 @@ import getFormattedDate from "@/lib/getFormattedDate"
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import 'highlight.js/styles/devibeans.css'
+import styles from './page.module.css'
 export const revalidate = 60;
 
 type Props = {
@@ -48,19 +49,19 @@ export default async function Post({ params: { postId }}: Props) {
     const pubDate = getFormattedDate(meta.date);
 
     const tags = meta.tags.map((tag, i) => (
-        <Link key={i} href={`/blog/tags/${tag}`}>{tag}</Link>
+        <Link className={styles.pTag} key={i} href={`/blog/tags/${tag}`}>#{tag}</Link>
     ))
     return (
-        <div>
+        <div className={styles.main}>
             <h1>{meta.title}</h1>
-            <p>{pubDate}</p>
+            <p>🗓 {pubDate}</p>
             <article> { content } </article>
-            <section> 
+            <section className={styles.section}> 
                 <h4>Related:</h4>
-                <div> {tags} </div>
+                <div className={styles.tags}> {tags} </div>
             </section>
-            <p>
-                <Link href="/blog"> Back to blog</Link>
+            <p className={styles.foot}>
+                👈🏼 <Link className={styles.linkBack} href="/blog">Back to blog</Link>
             </p>
         </div>
     )

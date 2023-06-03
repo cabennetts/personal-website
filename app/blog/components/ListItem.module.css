@@ -1,0 +1,12 @@
+.link {
+    font-size: 1.25rem;
+    padding: 0.5rem;
+}
+.link p {
+    margin: 0;
+    font-size: 1rem;
+    color: dimgray;
+}
+.post {
+    text-decoration-line: underline;
+}

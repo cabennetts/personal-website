@@ -16,6 +16,7 @@ import nodeFetch from 'node-fetch';
 import { useEffect, useState } from "react";
 import getAllImages from "@/lib/getUnsplashImages";
 import styles from './page.module.css'
+import { UnsplashImage } from "@/types";
 
 export const metadata: Metadata = {
   title: 'Other ',
@@ -40,10 +41,14 @@ interface Photo  {
 
 export default async function OtherPage() {
   // requests during the build
-  const imageData: Promise<UnsplashImage[]> = getAllImages()
+  const imageData: Promise<UnsplashImage[]> = getAllImages(1)
+  const imageData2: Promise<UnsplashImage[]> = getAllImages(2)
+  const imageData3: Promise<UnsplashImage[]> = getAllImages(3)
 
   const images = await imageData
-  
+  const images2 = await imageData2
+  const images3 = await imageData3  
+
   return (
     // <div>
     <div className={styles.main}>
@@ -52,16 +57,38 @@ export default async function OtherPage() {
 
       <ul className={styles.containerUL}>
 
+        {images3.map(image => {
+          return (
+            <li key={image.id} className={styles.containerLI}>
+
+              <Link href={image.links.html} className={styles.photoLink} >
+                 <img className={styles.photo} src={image.urls.regular} alt={image.alt_description} />  
+              </Link>
+            </li>
+            )
+        })}
+
+        {images2.map(image => {
+          return (
+            <li key={image.id} className={styles.containerLI}>
+
+              <Link href={image.links.html} className={styles.photoLink} >
+                 <img className={styles.photo} src={image.urls.regular} alt={image.alt_description} />  
+              </Link>
+            </li>
+            )
+        })}
+          
         {images.map(image => {
           return (
             <li key={image.id} className={styles.containerLI}>
 
               <Link href={image.links.html} className={styles.photoLink} >
-                <img className={styles.photo} src={image.urls.regular} alt={image.alt_description} />  
+                 <img className={styles.photo} src={image.urls.regular} alt={image.alt_description} />  
               </Link>
             </li>
             )
-          })}
+        })}
         <li></li>
       </ul>
     </div>

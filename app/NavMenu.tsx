@@ -30,6 +30,9 @@ export default function NavMenu(){
                 <li>
                     <Link href={'/other'}>Other</Link> 
                 </li>
+                <li>
+                    <Link href={'/blog'}>Blog</Link> 
+                </li>
                 {/* <li>
                     <SignInButton/>
                 </li>

@@ -8,12 +8,11 @@ export default async function Posts() {
     if (!posts) {
         return <p>Not posts to display</p>
     }
-    console.log(posts)
+
     return (
         <div className={styles.main}>
-            <h3>Posts</h3>
             
-            <ul>
+            <ul className={styles.list}>
                 {posts.map(post => (
                     <ListItem key={post.id} post={post} />
                 ))}

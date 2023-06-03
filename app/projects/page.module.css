@@ -1,5 +1,11 @@
 .main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     padding: 2rem 4rem; 
+    min-height: 100vh;
+    line-height: 2rem;      
 }
 
 @media screen and (max-width: 768px) {
