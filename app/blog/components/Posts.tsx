@@ -1,11 +1,14 @@
-import { getSortedPosts } from '@/lib/posts';
+import { getPostsMeta } from '@/lib/posts';
 import styles from './Posts.module.css'
 import ListItem from './ListItem';
 
+export default async function Posts() {
+    const posts = await getPostsMeta()
 
-export default function Posts() {
-    const posts = getSortedPosts()
-
+    if (!posts) {
+        return <p>Not posts to display</p>
+    }
+    console.log(posts)
     return (
         <div className={styles.main}>
             <h3>Posts</h3>

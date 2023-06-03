@@ -1,52 +1,94 @@
-import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
-import { remark } from 'remark'
-import html from 'remark-html'
+import { BlogPost, Meta } from '@/types'
+import { compileMDX } from 'next-mdx-remote/rsc'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings/lib'
+import rehypeHighlight from 'rehype-highlight/lib'
+import rehypeSlug from 'rehype-slug'
+import Video from '@/app/blog/components/Video'
+import CustomImage from '@/app/blog/components/CstmImage'
 
-const postsDirectory = path.join(process.cwd(), 'blogposts')
-
-export function getSortedPosts() {
-    
-    const fileNames = fs.readdirSync(postsDirectory);
-    const allPosts = fileNames.map((fileName) => {
-        const id = fileName.replace(/\.md$/, '');
-
-        const fullPath = path.join(postsDirectory, fileName);
-        const fileContents = fs.readFileSync(fullPath, 'utf8');
-
-        const matterRes = matter(fileContents);
-
-        const blogPost: BlogPost = {
-            id,
-            title: matterRes.data.title,
-            date: matterRes.data.date,
+type FileTree = {
+    "tree": [
+        {
+            "path":string
         }
-
-        return blogPost
-    });
-
-    return allPosts.sort((a,b) => a.date < b.date ? 1 : -1);
+    ]
 }
 
-export async function getPost(id: string) {
-    const fullPath = path.join(postsDirectory, `${id}.md`);
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
+export async function getPostByName(fileName: string): Promise<BlogPost | undefined> {
+    const res = await fetch(`https://raw.githubusercontent.com/cabennetts/congenial-octo-happiness/main/${fileName}`, {
+        headers: {
+            Accept: 'application.vnd.github+json',
+            Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+            'X-Github-Api-Version': '2022-11-28',
+        }
+    })
 
-    const matterRes = matter(fileContents);
+    if(!res.ok) return undefined
 
-    const processedContent = await remark()
-        .use(html)
-        .process(matterRes.content);
-    
-    const contentHtml = processedContent.toString();
+    const rawMDX = await res.text()
+    if(rawMDX === '404: Not Found') return undefined
 
-    const blogPostWithHtml: BlogPost & { contentHtml: string } = {
-        id,
-        title: matterRes.data.title,
-        date: matterRes.data.date,
-        contentHtml,
+    // get front matter and content to use 
+    const { frontmatter, content } = await compileMDX<{ title: string, date: string, tags: string[] }>({
+        source: rawMDX,
+        components: {
+            Video,
+            CustomImage,
+        },
+        options: {
+            parseFrontmatter: true,
+            mdxOptions: {
+                rehypePlugins: [
+                    rehypeSlug,
+                    rehypeHighlight,
+                    [rehypeAutolinkHeadings, {
+                        behavior: 'wrap'
+                    }],
+                ]
+            }
+        }
+    })
+
+    // get name of file and removing file extension 
+    const id = fileName.replace(/\.mdx$/, '')
+
+    const blogPostObj: BlogPost = { 
+        meta: {
+            id, 
+            title: frontmatter.title, 
+            date: frontmatter.date, 
+            tags: frontmatter.tags 
+        },
+        content
     }
+    return blogPostObj
+}
+
+export async function getPostsMeta(): Promise<Meta[] | undefined> {
+    const res = await fetch(`https://api.github.com/repos/cabennetts/congenial-octo-happiness/git/trees/main?recursive=1`, {
+        headers: {
+            Accept: 'application.vnd.github+json',
+            Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+            'X-Github-Api-Version': '2022-11-28',
+        }
+    })
     
-    return blogPostWithHtml
+    if(!res.ok) return undefined
+
+    const repoFileTree: FileTree = await res.json()
+    const filesArray = repoFileTree.tree.map(obj => obj.path).filter(path => path.endsWith('.mdx'))
+    const posts: Meta[] = []
+
+    // for each DOES NOT await 
+    // for of DOES await
+    for (const file of filesArray) {
+        const post = await getPostByName(file)
+        
+        if (post) {
+            const { meta } = post
+            posts.push(meta)
+        }
+    }
+
+    return posts.sort((a,b) => a.date < b.date ? 1 : -1)
 }

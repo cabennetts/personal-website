@@ -1,3 +1,5 @@
+import { JSXElementConstructor, ReactElement } from "react"
+
 type Post = {
     "userId": number,
     "id": number,
@@ -100,10 +102,16 @@ type UnsplashImage = {
     }
 }
 
-type BlogPost = {
+type Meta = {
   id: string,
   title: string,
   date: string,
+  tags: string[],
+}
+
+type BlogPost = {
+  meta: Meta,
+  content: ReactElement<any, string | JSXElementConstructor<any>>,
 }
 
 type NotionPage = {

@@ -1,24 +1,31 @@
-import { getSortedPosts, getPost } from "@/lib/posts"
+import { getPostsMeta, getPostByName } from "@/lib/posts"
 import getFormattedDate from "@/lib/getFormattedDate"
 import { notFound } from "next/navigation"
 import Link from "next/link"
+import 'highlight.js/styles/devibeans.css'
+export const revalidate = 60;
+
+type Props = {
+    params: {
+        postId: string,
+    }
+}
 
 // Gives Static pages
-export function generateStaticParams() {
-    const posts = getSortedPosts()
+export async function generateStaticParams() {
+    const posts = await getPostsMeta() //deduplicated by nextjs
 
+    if( !posts) { return [] }
+    
     return posts.map((post) => {
         postId: post.id
     })
 }
 
-export function generateMetadata({ params }: { params: { postId: string} }) {
+export async function generateMetadata({ params: { postId }}: Props) {
 
-    const posts = getSortedPosts()
-    const { postId } = params
+    const post = await getPostByName(`${postId}.mdx`) //deduplicated by nextjs
 
-    const post = posts.find(post => post.id === postId)
-    
     if(!post) {
         return {
             title: 'Post Not Found'
@@ -26,32 +33,35 @@ export function generateMetadata({ params }: { params: { postId: string} }) {
     }
     
     return {
-        title: post.title
+        title: post.meta.title
     }
 }
 
-export default async function Post({ params }: { params: { postId: string} }) {
+export default async function Post({ params: { postId }}: Props) {
 
-    const posts = getSortedPosts()
-    const { postId } = params
+    const post = await getPostByName(`${postId}.mdx`) //deduplicated by nextjs
 
-    if(!posts.find(post => post.id === postId)) {
-        return notFound()
-    }
+    if(!post) return notFound()
 
-    const { title, date, contentHtml } = await getPost(postId)
+    const { meta, content } = post
 
-    const pubDate = getFormattedDate(date);
+    const pubDate = getFormattedDate(meta.date);
+
+    const tags = meta.tags.map((tag, i) => (
+        <Link key={i} href={`/blog/tags/${tag}`}>{tag}</Link>
+    ))
     return (
         <div>
-            <h1>{title}</h1>
+            <h1>{meta.title}</h1>
             <p>{pubDate}</p>
-            <article>
-                <section dangerouslySetInnerHTML={{ __html: contentHtml }} />
-                <p>
-                    <Link href="/blog"> Back to blog</Link>
-                </p>
-            </article>
+            <article> { content } </article>
+            <section> 
+                <h4>Related:</h4>
+                <div> {tags} </div>
+            </section>
+            <p>
+                <Link href="/blog"> Back to blog</Link>
+            </p>
         </div>
     )
 } 
