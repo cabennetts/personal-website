@@ -33,3 +33,33 @@
 .linkBack {
     text-decoration: underline;
 }
+
+@media (max-width: 1100px) {
+    .main {
+        padding: 0 2rem;
+    }
+    
+     .main article {
+        width: 80%;
+    }
+}
+
+@media (max-width: 768px) {
+    .main {
+        padding: 0 1rem;
+     }
+    
+     .main article {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+ .main {
+    padding: 0;
+ }
+
+ .main article {
+    width: 100%;
+}
+}
