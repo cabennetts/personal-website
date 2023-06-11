@@ -1,3 +1,5 @@
+import { Post } from "@/types"
+
 type Props = {
     promise: Promise<Post[]>
 }

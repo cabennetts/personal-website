@@ -24,7 +24,7 @@ export default function ProjectCard({ title, slug, description, githubRepo, yout
             /> */}
 
             {/* PROJECT CONTENT */}
-            <h2>
+            <h2 className="text-xl font-bold pb-2">
                 <Link href={`/projects/${slug}`}>{title}</Link>
             </h2>
             <p className={styles.description}>{description}</p>

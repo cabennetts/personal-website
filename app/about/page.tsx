@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default async function About(){
     return(
       <div className={styles.main}>
-        <h1>About Page</h1>
+        <h1 className="text-2xl font-bold pb-2">About Page</h1>
         
         <p>I am a graduate from the University of Kansas with a Bachelors degree in Computer Science!</p>
         <h4 className={styles.topics}>Where am I from?</h4>

@@ -52,7 +52,7 @@ export default async function OtherPage() {
   return (
     // <div>
     <div className={styles.main}>
-      <h1>Other Page</h1>
+      <h1 className="text-2xl font-bold pb-2">Other Page</h1>
       <p>Some photos I have taken that are uploaded on Unsplash and displayed using their api</p>
 
       <ul className={styles.containerUL}>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import getAllUsers from "@/lib/getAllUsers"
 import Link from "next/link"
+import { User } from "@/types"
 
 export const metadata: Metadata = {
     title: 'JSON Placeholder testing',

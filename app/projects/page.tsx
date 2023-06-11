@@ -37,7 +37,7 @@ export default async function ProjectsPage() {
   
   return(
     <div className={styles.main}>
-      <h2>Projects</h2>
+      <h2 className="text-xl font-bold pb-2">Projects</h2>
       {projects.map((project) => {
         return <ProjectCard title={project.title} slug={project.slug} description={project.description} githubRepo={project.githubrepo} youtubeVideo={project.youtubevideo} liveLink={project.livelink} language={project.language} key={project.slug} {...project} />;
       })}

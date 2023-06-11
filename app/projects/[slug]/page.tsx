@@ -27,8 +27,8 @@ export default async function ProjectItemPage({ params }: Props){
 
     return (
         <div className={styles.container}>
-            <h2 className={styles.title}>{project.title}</h2>
-            <p className={styles.description}>{project.description}</p>
+            <h2 className='text-xl font-bold pb-2'>{project.title}</h2>
+            <p className='pb-4'>{project.description}</p>
 
             {/* PROJECT IMAGE */}
             {/* <img 
@@ -37,7 +37,7 @@ export default async function ProjectItemPage({ params }: Props){
                 className={styles.cardImage}
             /> */}
 
-            <p><strong>Languages used:</strong> {project.language}</p>
+            <p className='pb-4'><strong>Languages used:</strong> {project.language}</p>
             
             {/* PROJECT LINKS */}
             <span className={styles.pushLeft}>
