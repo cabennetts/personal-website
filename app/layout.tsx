@@ -1,5 +1,5 @@
 import Link from "next/link";
-import './global.css'
+import './globals.css'
 import NavMenu from "./NavMenu";
 import { Inter } from 'next/font/google'
 import FooterMenu from "./FooterMenu";
@@ -7,7 +7,7 @@ import FooterMenu from "./FooterMenu";
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'CABENNETTS',
+  title: 'Caleb Bennetts',
   description: 'Caleb personal portfolio website',
 }
 
